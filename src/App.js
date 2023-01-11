@@ -8,11 +8,20 @@ import { useState, useEffect, useReducer,useRef } from 'react';
 // console.log(firstcity);
 // console.log(second);
 
+function useInput(initialValue)
+{
+  const [value,setValue] = useState(initialValue);
+  return [
+    {value,onChange:e=>setValue(e.target.value)},
+    () => setValue(initialValue)
+  ];
+
+}
+
 function App() {
 
-  const [title,setTitle] = useState("");
-  const [color,setColor] = useState("#000000");
-
+  const [titleProps,resetTitle] = useInput("");
+  const [colorProps,resetColor] = useInput("#000000");
 
 
   // const txtTitle = useRef();
@@ -24,11 +33,11 @@ function App() {
     // const title = txtTitle.current.value;
     // const color = hexColor.current.value;
 
-      alert(`${title},${color}`);
+      alert(`${titleProps.value},${colorProps.value}`);
     // txtTitle.current.value = "";
     // hexColor.current.value = "";
-    setTitle("");
-    setColor("#000000");
+    resetTitle();
+    resetColor();
 
   }
 
@@ -58,8 +67,7 @@ function App() {
       <form onSubmit={submit}>
 
       <input 
-      value={title}
-      onChange={(event) => setTitle(event.target.value)}
+      {...titleProps}
       type="text" 
       placeholder='color title...'/>
 
@@ -69,8 +77,7 @@ function App() {
       <button>ADD</button> */}
 
       <input 
-      onChange={(event) => setColor(event.target.value)}
-      value={color}
+      {...colorProps}
       type="color"/>
 
       <button>ADD</button>

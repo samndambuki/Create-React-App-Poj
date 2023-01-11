@@ -1,5 +1,5 @@
 import './App.css';
-import { useState, useEffect, useReducer } from 'react';
+import { useState, useEffect, useReducer,useRef } from 'react';
 
 //const cities = ["Tokyo","Tahoe City","Bend"];
 //console.log(cities[0]);
@@ -9,6 +9,20 @@ import { useState, useEffect, useReducer } from 'react';
 // console.log(second);
 
 function App() {
+
+  const txtTitle = useRef();
+  const hexColor = useRef();
+
+  //console.log(txtTitle);
+
+  const submit = e => {
+    const title = txtTitle.current.value;
+    const color = hexColor.current.value;
+    alert(`${title},${color}`);
+    txtTitle.current.value = "";
+    hexColor.current.value = "";
+
+  }
 
   // const [emotion,setEmotion] = useState("happy");
   // const [secondary,setSecondary] = 
@@ -24,24 +38,21 @@ function App() {
   //   console.log(`Its ${secondary} around here`);
   // },[secondary]);
 
-  const [checked,setChecked] = useReducer((checked) => !checked,false);
+  // const [checked,setChecked] = useReducer((checked) => !checked,false);
 
   return (
-    <div className="App">
 
-     {/* <h1>Current emotion is {emotion}</h1>
-     <button onClick={()=> setEmotion("sad")}>Sad</button>
-     <button onClick={()=> setEmotion("excited")}>Excited</button>
-     <h2>Current Secondary emotion is {secondary}</h2>
-     <button onClick={()=> setSecondary("grateful")}>Grateful</button> */}
+    <form onSubmit={submit}>
+      <input 
+      ref={txtTitle}
+      type="text" placeholder='color title...'/>
 
-     <input type="checkbox" value={checked}
-     onChange={setChecked}
-     />
+      <input 
+      ref={hexColor}
+      type="color"/>
+      <button>ADD</button>
 
-     <label>{checked? "checked" : "not checked"}</label>
-
-    </div>
+    </form>
   );
 }
 

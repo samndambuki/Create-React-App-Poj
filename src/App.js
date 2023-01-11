@@ -10,17 +10,25 @@ import { useState, useEffect, useReducer,useRef } from 'react';
 
 function App() {
 
-  const txtTitle = useRef();
-  const hexColor = useRef();
+  const [title,setTitle] = useState("");
+  const [color,setColor] = useState("#000000");
+
+
+
+  // const txtTitle = useRef();
+  // const hexColor = useRef();
 
   //console.log(txtTitle);
 
   const submit = e => {
-    const title = txtTitle.current.value;
-    const color = hexColor.current.value;
-    alert(`${title},${color}`);
-    txtTitle.current.value = "";
-    hexColor.current.value = "";
+    // const title = txtTitle.current.value;
+    // const color = hexColor.current.value;
+
+      alert(`${title},${color}`);
+    // txtTitle.current.value = "";
+    // hexColor.current.value = "";
+    setTitle("");
+    setColor("#000000");
 
   }
 
@@ -42,14 +50,29 @@ function App() {
 
   return (
 
-    <form onSubmit={submit}>
-      <input 
-      ref={txtTitle}
-      type="text" placeholder='color title...'/>
+    // <form onSubmit={submit}>
+    //   <input 
+    //   ref={txtTitle}
+    //   type="text" placeholder='color title...'/>
+
+      <form onSubmit={submit}>
 
       <input 
+      value={title}
+      onChange={(event) => setTitle(event.target.value)}
+      type="text" 
+      placeholder='color title...'/>
+
+      {/* <input 
       ref={hexColor}
       type="color"/>
+      <button>ADD</button> */}
+
+      <input 
+      onChange={(event) => setColor(event.target.value)}
+      value={color}
+      type="color"/>
+
       <button>ADD</button>
 
     </form>

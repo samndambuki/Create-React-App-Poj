@@ -1,6 +1,5 @@
 import './App.css';
-import { useState } from 'react';
-
+import { useState, useEffect } from 'react';
 
 //const cities = ["Tokyo","Tahoe City","Bend"];
 //console.log(cities[0]);
@@ -14,6 +13,10 @@ function App() {
   const [emotion,setEmotion] = useState("happy");
 
   //console.log(what);
+
+  useEffect(()=>{
+    console.log(`Its ${emotion} right now`);
+  }, [emotion]);
 
   return (
     <div className="App">

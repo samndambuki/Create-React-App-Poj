@@ -8,20 +8,20 @@ import { useState, useEffect, useReducer,useRef } from 'react';
 // console.log(firstcity);
 // console.log(second);
 
-function useInput(initialValue)
-{
-  const [value,setValue] = useState(initialValue);
-  return [
-    {value,onChange:e=>setValue(e.target.value)},
-    () => setValue(initialValue)
-  ];
+// function useInput(initialValue)
+// {
+//   const [value,setValue] = useState(initialValue);
+//   return [
+//     {value,onChange:e=>setValue(e.target.value)},
+//     () => setValue(initialValue)
+//   ];
 
-}
+// }
 
 function App() {
 
-  const [titleProps,resetTitle] = useInput("");
-  const [colorProps,resetColor] = useInput("#000000");
+  // const [titleProps,resetTitle] = useInput("");
+  // const [colorProps,resetColor] = useInput("#000000");
 
 
   // const txtTitle = useRef();
@@ -29,17 +29,17 @@ function App() {
 
   //console.log(txtTitle);
 
-  const submit = e => {
-    // const title = txtTitle.current.value;
-    // const color = hexColor.current.value;
+  // const submit = e => {
+  //   // const title = txtTitle.current.value;
+  //   // const color = hexColor.current.value;
 
-      alert(`${titleProps.value},${colorProps.value}`);
-    // txtTitle.current.value = "";
-    // hexColor.current.value = "";
-    resetTitle();
-    resetColor();
+  //     alert(`${titleProps.value},${colorProps.value}`);
+  //   // txtTitle.current.value = "";
+  //   // hexColor.current.value = "";
+  //   resetTitle();
+  //   resetColor();
 
-  }
+  // }
 
   // const [emotion,setEmotion] = useState("happy");
   // const [secondary,setSecondary] = 
@@ -57,32 +57,44 @@ function App() {
 
   // const [checked,setChecked] = useReducer((checked) => !checked,false);
 
+  const [data,setData] = useState(null);
+  useEffect(()=>{
+    fetch(`https://api.github.com/users/sam`)
+  .then((response)=>response.json())
+  .then(setData)
+  },[]);
+
+  if(data) return <pre>{JSON.stringify(data,null,2)}</pre>
+
   return (
 
-    // <form onSubmit={submit}>
+    // // <form onSubmit={submit}>
+    // //   <input 
+    // //   ref={txtTitle}
+    // //   type="text" placeholder='color title...'/>
+
+    //   <form onSubmit={submit}>
+
     //   <input 
-    //   ref={txtTitle}
-    //   type="text" placeholder='color title...'/>
+    //   {...titleProps}
+    //   type="text" 
+    //   placeholder='color title...'/>
 
-      <form onSubmit={submit}>
+    //   {/* <input 
+    //   ref={hexColor}
+    //   type="color"/>
+    //   <button>ADD</button> */}
 
-      <input 
-      {...titleProps}
-      type="text" 
-      placeholder='color title...'/>
+    //   <input 
+    //   {...colorProps}
+    //   type="color"/>
 
-      {/* <input 
-      ref={hexColor}
-      type="color"/>
-      <button>ADD</button> */}
+    //   <button>ADD</button>
 
-      <input 
-      {...colorProps}
-      type="color"/>
+    // </form>
 
-      <button>ADD</button>
+    <h1>Data</h1>
 
-    </form>
   );
 }
 

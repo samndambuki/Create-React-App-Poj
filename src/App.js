@@ -100,10 +100,12 @@ function App() {
   if(loading) return <h1>Loading...</h1>;
   if(error) return <pre>{JSON.stringify(error)}</pre>;
   if(!data) return null;
+
+  //console.log(data,"DATA!!!")
    
   return (
     <div>
-      {data.allLifts.map(lift=>(
+      {data.data.allLifts.map(lift=>(
         <Lift name={lift.name} elevationGain={lift.elevationGain}
         status={lift.status}/>
       ))}

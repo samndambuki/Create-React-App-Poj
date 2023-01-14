@@ -18,6 +18,23 @@ import { useState, useEffect, useReducer,useRef } from 'react';
 
 // }
 
+const query =`
+query{
+  allLifts{
+    name
+    elevationGain
+    status
+  }
+}
+`;
+
+const opts =
+{
+  method:"POST",
+  headers:{"Content-type":"application/json"},
+  body:JSON.stringify({query})
+};
+
 function Lift({name,elevationGain,status})
 {
   return(
@@ -73,7 +90,7 @@ function App() {
 
   useEffect(()=>{
     setLoading(true);
-    fetch(`https://snowtooth.moonhighway.com/`)
+    fetch(`https://snowtooth.moonhighway.com/`,opts)
   .then((response)=>response.json())
   .then(setData)
   .then(()=>setLoading(false))

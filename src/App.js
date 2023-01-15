@@ -18,31 +18,44 @@ import { useState, useEffect, useReducer,useRef } from 'react';
 
 // }
 
-const query =`
-query{
-  allLifts{
-    name
-    elevationGain
-    status
-  }
-}
-`;
+// const query =`
+// query{
+//   allLifts{
+//     name
+//     elevationGain
+//     status
+//   }
+// }
+// `;
 
-const opts =
-{
-  method:"POST",
-  headers:{"Content-type":"application/json"},
-  body:JSON.stringify({query})
-};
+// const opts =
+// {
+//   method:"POST",
+//   headers:{"Content-type":"application/json"},
+//   body:JSON.stringify({query})
+// };
 
-function Lift({name,elevationGain,status})
-{
-  return(
-    <div>
-      <h1>{name}</h1>
-      <p>{elevationGain} {status}</p>
-    </div>
-  )
+// function Lift({name,elevationGain,status})
+// {
+//   return(
+//     <div>
+//       <h1>{name}</h1>
+//       <p>{elevationGain} {status}</p>
+//     </div>
+//   )
+// }
+
+const tahoe_peaks = [
+  {name:"Freel",elevation:10891},
+  {name:"Monument",elevation:10067},
+  {name:"Pyramid",elevation:9983},
+  {name:"Tallac",elevation:9735}
+];
+
+function List({data,renderItem,renderEmpty}){
+  return !data.length ? renderEmpty : <ul>{data.map((item)=>(
+  <li key={item.name}>{renderItem(item)}</li>
+  ))}</ul>
 }
 
 function App() {
@@ -84,32 +97,39 @@ function App() {
 
   // const [checked,setChecked] = useReducer((checked) => !checked,false);
 
-  const [data,setData] = useState(null);
-  const [error,setError] = useState(null);
-  const[loading,setLoading] = useState(false);
+  // const [data,setData] = useState(null);
+  // const [error,setError] = useState(null);
+  // const[loading,setLoading] = useState(false);
 
-  useEffect(()=>{
-    setLoading(true);
-    fetch(`https://snowtooth.moonhighway.com/`,opts)
-  .then((response)=>response.json())
-  .then(setData)
-  .then(()=>setLoading(false))
-  .catch(setError);
-  },[]);
+  // useEffect(()=>{
+  //   setLoading(true);
+  //   fetch(`https://snowtooth.moonhighway.com/`,opts)
+  // .then((response)=>response.json())
+  // .then(setData)
+  // .then(()=>setLoading(false))
+  // .catch(setError);
+  // },[]);
 
-  if(loading) return <h1>Loading...</h1>;
-  if(error) return <pre>{JSON.stringify(error)}</pre>;
-  if(!data) return null;
+  // if(loading) return <h1>Loading...</h1>;
+  // if(error) return <pre>{JSON.stringify(error)}</pre>;
+  // if(!data) return null;
 
-  //console.log(data,"DATA!!!")
+  // //console.log(data,"DATA!!!")
    
   return (
-    <div>
-      {data.data.allLifts.map(lift=>(
-        <Lift name={lift.name} elevationGain={lift.elevationGain}
-        status={lift.status}/>
-      ))}
-    </div>
+    // <div>
+    //   {/* {data.data.allLifts.map(lift=>(
+    //     <Lift name={lift.name} elevationGain={lift.elevationGain}
+    //     status={lift.status}/>
+    //   ))} */}
+
+    //   <h1>Hello</h1>
+
+    // </div>
+
+    <List data={tahoe_peaks} renderEmpty={<p>This list is empty</p>}
+    renderItem={item=> <>{item.name} - {item.elevation} ft.</>}
+    />
   );
 
   // return (
